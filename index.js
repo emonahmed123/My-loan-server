@@ -1,7 +1,8 @@
 const express = require('express')
+const app = express()
 const cors =require('cors')
 require('dotenv').config()
-const app = express()
+
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 const port = process.env.PORT||5000
@@ -18,11 +19,10 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 async function run() {
 
 try{
+  
   const loanCollection = client.db("loan-sheet").collection("loan-deatail");
   
   await client.connect();
-  console.log('database conccerd')
-
   app.post('/deatail',async(req,res)=>{
    const document=req.body;
    const result =await loanCollection.insertOne(document) 
